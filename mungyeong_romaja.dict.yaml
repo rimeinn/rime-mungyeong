@@ -1,0 +1,69 @@
+# Rime dictionary
+# encoding: utf-8
+# license: public domain
+
+# korean romaja keyboard layout
+---
+name: mungyeong_romaja
+version: "20241213"
+sort: by_weight
+use_preset_vocabulary: false
+...
+
+ㅜ	w
+ㅟ	wi
+ㅘ	wa
+ㅙ	wae
+ㅝ	wo
+ㅞ	we
+ㅔ	e
+ㅓ	eo
+ㅡ	eu
+ㅢ	eui
+ㄹ	r
+ㅌ	t
+ㅣ	y
+ㅑ	ya
+ㅕ	yeo
+ㅛ	yo
+ㅠ	yu
+ㅒ	yae
+ㅖ	ye
+ㅜ	u
+ㅟ	ui
+ㅣ	i
+ㅗ	o
+ㅚ	oe
+ㅍ	p
+ㅏ	a
+ㅐ	ae
+ㅅ	s
+ㅆ	S
+ㄷ	d
+ㄸ	T
+ㅍ	f
+ㄱ	g
+ㄲ	G
+ㅎ	h
+ㅈ	j
+ㅉ	J
+ㅋ	k
+ㄹ	l
+ㅇ	x
+ㅇ	ng
+ㅊ	c
+ㅂ	b
+ㅃ	B
+ㄴ	n
+ㅁ	m
+ㄳ	gs
+ㄵ	nj
+ㄶ	nh
+ㄺ	lg
+ㄻ	lm
+ㄼ	lb
+ㄽ	ls
+ㄾ	lt
+ㄿ	lp
+ㅀ	lh
+ㅄ	bs

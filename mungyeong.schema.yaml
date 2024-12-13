@@ -1,0 +1,67 @@
+schema:
+  schema_id: mungyeong
+  name: 文鏡
+  version: '20241213'
+  author:
+    - kuroame
+  description: |
+    初步者를 為한 韓国語 入力機
+  dependencies:
+    - mungyeong_dubeolsik
+    - mungyeong_romaja
+
+
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: [ 한, 영 ]
+  - name: full_shape
+    states: [ 반각, 전각 ]
+  - name: ascii_punct
+    states: [ 。，, ．， ]
+
+engine:
+  processors:
+    - ascii_composer
+    - recognizer
+    - key_binder
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    - lua_translator@*mungyeong/mungyeong_translator
+  filters:
+    - uniquifier
+
+speller:
+  alphabet: abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
+  delimiter: " '"
+
+translator:
+  dictionary: mungyeong.extended
+  enable_user_dict: true
+
+punctuator:
+  import_preset: default
+
+recognizer:
+  import_preset: default
+
+editor:
+  bindings:
+    Space: commit_script_text
+
+mungyeong:
+  layout: dubeolsik # dubeolsik, romaja
+
+key_binder:
+  import_preset: default

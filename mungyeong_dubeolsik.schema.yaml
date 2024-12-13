@@ -1,0 +1,9 @@
+schema:
+  schema_id: mungyeong_dubeolsik
+  name: 文鏡
+  version: '20241213'
+
+translator:
+  dictionary: mungyeong_dubeolsik
+
+__include: mungyeong:/preset_for_layout

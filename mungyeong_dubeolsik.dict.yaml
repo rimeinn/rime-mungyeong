@@ -1,0 +1,67 @@
+# Rime dictionary
+# encoding: utf-8
+# license: public domain
+
+# korean 2-set keyboard layout
+---
+name: mungyeong_dubeolsik
+version: "20241213"
+sort: by_weight
+use_preset_vocabulary: false
+...
+
+ㅂ	q
+ㅃ	Q
+ㅈ	w
+ㅉ	W
+ㄷ	e
+ㄸ	E
+ㄱ	r
+ㄲ	R
+ㅅ	t
+ㅆ	T
+ㅛ	y
+ㅕ	u
+ㅑ	i
+ㅐ	o
+ㅒ	O
+ㅔ	p
+ㅖ	P
+ㅁ	a
+ㄴ	s
+ㅇ	d
+ㄹ	f
+ㅎ	g
+ㅗ	h
+ㅓ	j
+ㅏ	k
+ㅣ	l
+ㅋ	z
+ㅌ	x
+ㅊ	c
+ㅍ	v
+ㅠ	b
+ㅜ	n
+ㅡ	m
+ㅝ	nj
+ㅟ	nl
+ㅞ	np
+ㅘ	hk
+ㅚ	hl
+ㅙ	ho
+ㅢ	ml
+ㄳ	rt
+ㄵ	sw
+ㄶ	sg
+ㄺ	fr
+ㄻ	fa
+ㄼ	fq
+ㄽ	ft
+ㄾ	fv
+ㄿ	fg
+ㅀ	qa
+ㅄ	qs
+
+
+
+

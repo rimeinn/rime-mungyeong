@@ -1,0 +1,15 @@
+# Rime dictionary
+# encoding: utf-8
+
+---
+name: mungyeong.hanja
+version: "20241213"
+sort: by_weight
+use_preset_vocabulary: false
+columns:
+  - text
+  - code
+  - weight
+...
+
+安	안
