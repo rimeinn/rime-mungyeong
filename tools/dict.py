@@ -5,7 +5,7 @@ def process_hanja_file():
         lines = f.readlines()
     
     dict_entries = []
-    meaning_entries = []
+    meaning_entries = {}
     
     for line in lines:
         parts = line.strip().split(':')
@@ -20,7 +20,37 @@ def process_hanja_file():
             dict_entries.append(f"{hanja}\t{hangul}")
         
         if len(parts) > 2 and parts[2]:
-            meaning_entries.append(f"{hanja}\t{parts[2]}")
+            if len(hanja) == 1:
+                meanings = parts[2].split(',')
+                # 用字典来按发音分组
+                pronoun_meanings = {}
+                
+                for meaning in meanings:
+                    words = meaning.split(' ')
+                    pronouciation = words[-1]
+                    meaning_text = '\u2002'.join(words[0:-1])
+                    
+                    if pronouciation in pronoun_meanings:
+                        pronoun_meanings[pronouciation].append(meaning_text)
+                    else:
+                        pronoun_meanings[pronouciation] = [meaning_text]
+                
+                # 格式化输出
+                formatted_meanings = ""
+                for pronoun, meaning_list in pronoun_meanings.items():
+                    if pronoun == hangul:
+                        formatted_meanings += f"〔{pronoun}〕{','.join(meaning_list)},"
+                    else:
+                        formatted_meanings += f"{pronoun}\u2002{','.join(meaning_list)},"
+                        
+                formatted_meanings = formatted_meanings.rstrip(',')
+            else:
+                formatted_meanings = parts[2]
+                
+            if hanja in meaning_entries:
+                meaning_entries[hanja] += f",{formatted_meanings}"
+            else:
+                meaning_entries[hanja] = formatted_meanings
     
     with open('mungyeong.hanja.dict.yaml', 'w', encoding='utf-8') as f:
         f.write("""
@@ -72,7 +102,7 @@ columns:
         f.write('\n'.join(dict_entries))
         
     with open('opencc/mungyeong_hanja_meaning.txt', 'w', encoding='utf-8') as f:
-        f.write('\n'.join(meaning_entries))
+        f.write('\n'.join([f"{k}\t{v}" for k, v in meaning_entries.items()]))
 
 if __name__ == '__main__':
     process_hanja_file()
