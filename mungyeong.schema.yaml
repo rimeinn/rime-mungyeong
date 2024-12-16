@@ -33,6 +33,9 @@ engine:
     - punctuator
     - selector
     - navigator
+    # Space is not to commit the first candidate, but to commit the current script text,
+    # just like the ordinary Korean input method.
+    - lua_processor@*mungyeong/mungyeong_auto_space_processor
     - express_editor
   segmentors:
     - ascii_segmentor
@@ -65,9 +68,6 @@ recognizer:
 
 editor:
   bindings:
-    # Space is not to commit the first candidate, but to commit the current script text,
-    # just like the ordinary Korean input method.
-    space: commit_script_text
     Return: commit_script_text
 
 mungyeong:

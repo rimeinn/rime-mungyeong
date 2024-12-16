@@ -12,7 +12,6 @@ function Top.init(env)
     env.jamo_translator = Component.Translator(env.engine, Schema("mungyeong_" .. env.layout), "translator",
         "script_translator")
     env.hanja_translator = Component.Translator(env.engine, Schema("mungyeong"), "translator", "table_translator")
-    env.auto_space = env.engine.schema.config:get_bool("mungyeong/auto_space") or true
 end
 
 function Top.fini(env)
@@ -38,18 +37,11 @@ function Top.func(input, seg, env)
                 hanja_cand.preedit = hangul_str
                 hanja_cand.start = start
                 hanja_cand._end = _end
-                if env.auto_space then
-                    hanja_cand.preedit = hanja_cand.preedit .. " "
-                    hanja_cand = ShadowCandidate(hanja_cand, "spaced", hanja_cand.text .. " ", hanja_cand.comment)
-                end
                 yield(hanja_cand)
             end
             if not has_hanja_cand then
                 local hangul_candidate = Candidate("hangul", start, _end, hangul_str, "")
                 hangul_candidate.preedit = hangul_str
-                if env.auto_space then
-                    hangul_candidate.preedit = hangul_candidate.preedit .. " "
-                end
                 yield(hangul_candidate)
             end
         end
