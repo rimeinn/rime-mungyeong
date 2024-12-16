@@ -33,7 +33,10 @@ def process_hanja_file():
                     if pronouciation in pronoun_meanings:
                         pronoun_meanings[pronouciation].append(meaning_text)
                     else:
-                        pronoun_meanings[pronouciation] = [meaning_text]
+                        if pronouciation == hangul:
+                            pronoun_meanings[pronouciation] = [meaning_text]
+                        else:
+                            pronoun_meanings[hangul] = ['\u2002'.join(words)]
                 
                 # 格式化输出
                 formatted_meanings = ""
@@ -41,14 +44,14 @@ def process_hanja_file():
                     if pronoun == hangul:
                         formatted_meanings += f"〔{pronoun}〕{','.join(meaning_list)},"
                     else:
-                        formatted_meanings += f"{pronoun}\u2002{','.join(meaning_list)},"
+                        formatted_meanings += f"{pronoun}:\u2002{','.join(meaning_list)},"
                         
                 formatted_meanings = formatted_meanings.rstrip(',')
             else:
                 formatted_meanings = parts[2]
                 
             if hanja in meaning_entries:
-                meaning_entries[hanja] += f",{formatted_meanings}"
+                meaning_entries[hanja] += f"\u2002{formatted_meanings}"
             else:
                 meaning_entries[hanja] = formatted_meanings
     
