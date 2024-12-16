@@ -6,12 +6,12 @@
 -- author: kuroame
 
 local utf8 = require("utf8")
+local hangul = require("mungyeong/mungyeong_hangul")
 local Top = {}
 
 function Top.init(env)
     env.layout = env.engine.schema.config:get_string("mungyeong/layout") or "dubeolsik"
     env.jamo_translator = Component.Translator(env.engine, Schema("mungyeong_"..env.layout), "translator", "script_translator")
-    env.jamo2hangul = Opencc("mungyeong_jamo2hangul.json")
 end
 
 function Top.fini(env)
@@ -23,8 +23,7 @@ function Top.func(input, seg, env)
     local jamo_cand = Top.query_jamo_translator(input, seg, env)
     if jamo_cand then
         local jamo_str = jamo_cand.text
-        -- Problem: ㅇㅏㅁㅣ -> 암ㅣ x 아미 ✔
-        local hangul_str = env.jamo2hangul:convert(jamo_str)
+        local hangul_str = hangul.convert_jamo_to_hangul(jamo_str)
         if hangul_str then
             -- TODO: Translate to hanja
             yield(Candidate("hangul", seg.start, seg._end, hangul_str, ""))
