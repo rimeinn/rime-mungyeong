@@ -12,11 +12,6 @@ function Top.init(env)
     env.jamo_translator = Component.Translator(env.engine, Schema("mungyeong_" .. env.layout), "translator",
         "script_translator")
     env.hanja_translator = Component.Translator(env.engine, Schema("mungyeong"), "translator", "table_translator")
-    if not env.hanja_translator then
-        print("Failed to load hanja_translator")
-    else
-        print("hanja_translator loaded")
-    end
 end
 
 function Top.fini(env)

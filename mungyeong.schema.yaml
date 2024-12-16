@@ -18,6 +18,7 @@ switches:
   - name: full_shape
     states: [ 반각, 전각 ]
   - name: ascii_punct
+    reset: 1
     states: [ 。，, ．， ]
 
 engine:
@@ -52,7 +53,6 @@ translator:
   enable_completion: false
   enable_sentence: false
 
-
 punctuator:
   import_preset: default
 
@@ -61,10 +61,31 @@ recognizer:
 
 editor:
   bindings:
+    # Space is not to commit the first candidate, but to commit the current script text,
+    # just like the ordinary Korean input method.
     space: commit_script_text
 
 mungyeong:
+  # Choose the layout you want to use.
+  # 2-set and romaja layouts are provided by default.
+  # You can also define your own layout following these steps:
+  # 1. Create new files:
+  #    - mungyeong_your_layout.schema.yaml (reference: mungyeong_dubeolsik.schema.yaml)
+  #    - mungyeong_your_layout.dict.yaml (reference: mungyeong_dubeolsik.dict.yaml)
+  # 2. Add your layout as a dependency in the schema/dependencies of this file.
+  # 3. Change the layout value: your_layout
+  # 4. Re-deploy to apply changes
   layout: dubeolsik # dubeolsik, romaja
+
+  # If set to true, the script text will be automatically committed when
+  # there is no matching hanja candidate of the current script text.
+  auto_commit: true
+
+  # Comment of the hanja candidate.
+  # - goyueo: native Korean word
+  # - chinese: Chinese word
+  # - japanese: Japanese word
+  comment: goyueo
 
 key_binder:
   import_preset: default

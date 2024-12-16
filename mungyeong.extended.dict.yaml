@@ -8,5 +8,4 @@ sort: by_weight
 use_preset_vocabulary: false
 import_tables:
   - mungyeong.hanja
-  - mungyeong.hanjao      
 ...

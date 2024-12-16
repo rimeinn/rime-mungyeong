@@ -265,7 +265,7 @@ function Hangul:to_jamo_string()
     return (utf8.char(self.on) .. utf8.char(self.vowel) .. utf8.char(self.coda)):gsub(" ", "")
 end
 
--- Converts a string of jamo into a string of hangul syllables.
+-- Convert a string of jamo into a string of hangul syllables.
 -- The function aims to maximize the formation of valid hangul syllables 
 -- by combining jamo in the correct order.
 -- Examples:
