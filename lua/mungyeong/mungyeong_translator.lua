@@ -28,6 +28,9 @@ function Top.func(input, seg, env)
     if jamo_cand then
         local jamo_str = jamo_cand.text
         local hangul_str = hangul.convert_jamo_to_hangul(jamo_str)
+        if input:sub(-1) == "'" then
+            hangul_str = hangul_str .. "'"
+        end
         if hangul_str then
             local has_hanja_cand = false
             for hanja_cand in Top.query_hanja_translator(hangul_str, env) do
