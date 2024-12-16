@@ -49,6 +49,9 @@ speller:
 translator:
   dictionary: mungyeong.extended
   enable_user_dict: true
+  enable_completion: false
+  enable_sentence: false
+
 
 punctuator:
   import_preset: default
@@ -58,7 +61,7 @@ recognizer:
 
 editor:
   bindings:
-    Space: commit_script_text
+    space: commit_script_text
 
 mungyeong:
   layout: dubeolsik # dubeolsik, romaja

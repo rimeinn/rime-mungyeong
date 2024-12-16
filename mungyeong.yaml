@@ -9,3 +9,5 @@ preset_for_layout:
   speller:
     alphabet: abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
     delimiter: " '"
+  translator:
+    enable_user_dict: false

@@ -3,6 +3,7 @@
 # license: public domain
 
 # korean romaja keyboard layout
+# follows the standard romanizing orthography of GongjinCheong
 ---
 name: mungyeong_romaja
 version: "20241213"
@@ -56,14 +57,3 @@ use_preset_vocabulary: false
 ㅃ	B
 ㄴ	n
 ㅁ	m
-ㄳ	gs
-ㄵ	nj
-ㄶ	nh
-ㄺ	lg
-ㄻ	lm
-ㄼ	lb
-ㄽ	ls
-ㄾ	lt
-ㄿ	lp
-ㅀ	lh
-ㅄ	bs

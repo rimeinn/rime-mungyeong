@@ -4,6 +4,7 @@ schema:
   version: '20241213'
 
 translator:
-  dictionary: mungyeong_romaja
+  __patch:
+    dictionary: mungyeong_romaja
 
 __include: mungyeong:/preset_for_layout
