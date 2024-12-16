@@ -68,6 +68,7 @@ editor:
     # Space is not to commit the first candidate, but to commit the current script text,
     # just like the ordinary Korean input method.
     space: commit_script_text
+    Return: commit_script_text
 
 mungyeong:
   # Choose the layout you want to use.
@@ -81,9 +82,8 @@ mungyeong:
   # 4. Re-deploy to apply changes
   layout: dubeolsik # dubeolsik, romaja
 
-  # If set to true, the script text will be automatically committed when
-  # there is no matching hanja candidate of the current script text.
-  auto_commit: true
+  # Automatically insert a space after selecting a candidate or committing text
+  auto_space: true
 
 meaning:
   option_name: meaning
