@@ -23,7 +23,7 @@ switches:
     states: [ 。，, ．， ]
   - name: meaning
     reset: 1
-    states: [ 有, 無 ]
+    states: [ 無, 有 ]
 
 engine:
   processors:

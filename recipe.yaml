@@ -9,3 +9,7 @@ install_files: >-
   lua/mungyeong/*.lua
   opencc/*
   mungyeong*.yaml
+
+  https://my-rime.vercel.app/?plum=ksqsf/rime-moran:moran,moran_sentence,moran_fixed
+
+https://my-rime.vercel.app/?plum=rimeinn/rime-mungyeong:mungyeong,mungyeong_dubeolsik,mungyeong_romaja,mungyeong_reverse
