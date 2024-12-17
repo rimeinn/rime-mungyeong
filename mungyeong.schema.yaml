@@ -9,6 +9,7 @@ schema:
   dependencies:
     - mungyeong_dubeolsik
     - mungyeong_romaja
+    - mungyeong_reverse
 
 
 switches:
@@ -45,6 +46,7 @@ engine:
     - fallback_segmentor
   translators:
     - punct_translator
+    - reverse_lookup_translator
     - lua_translator@*mungyeong/mungyeong_translator
   filters:
     - simplifier@meaning
@@ -61,9 +63,6 @@ translator:
   enable_sentence: false
 
 punctuator:
-  import_preset: default
-
-recognizer:
   import_preset: default
 
 editor:
@@ -93,6 +92,17 @@ meaning:
   comment_form:
     - "xform/-/ /"
   tags: [abc]
+
+reverse_lookup:
+  dictionary: mungyeong_reverse.extended
+  prefix: "`"
+  suffix: "'"
+  tips: "〔反〕"
+
+recognizer:
+  import_preset: default
+  patterns:
+    reverse_lookup: "^`[a-z]*'?$"
 
 key_binder:
   import_preset: default
