@@ -8,4 +8,19 @@
 - 支持2-set/工振厅罗马字两套韩语键盘布局，而且自定义布局也很容易
 
 ## 示例
-![image](https://github.com/user-attachments/assets/27b410d1-34a2-4532-b891-779492d3bd08)
+| 功能  | 截图|
+|--------|--------|
+| 释义滤镜   |![image](https://github.com/user-attachments/assets/56923752-37dc-4275-92be-a264448111ff)|
+| 拼音反查(内置魔然自然码,也可自行替换成其他码表)  | ![image](https://github.com/user-attachments/assets/3b81bcf4-abf7-45fc-8546-92cc77262a9b)|
+| 日语罗马字反查|![image](https://github.com/user-attachments/assets/6d0e27e8-2917-466b-a715-47721558e664)|
+
+
+## 说明
+安装：
+- `℞ rimeinn/rime-mungyeong`
+
+布局：
+- 在`mungyeong.schema.yaml`中修改配置项`munmungyeong/layout`, 可选值 `dubeolsik`(2-set)、 `romaja`(韩语罗马字)，也可以参照注释添加自定义布局
+
+反查:
+- 可在`mungyeong_reverse.extended.dict.yaml`自行增加、删除反查词典
