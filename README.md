@@ -20,7 +20,7 @@
 - `℞ rimeinn/rime-mungyeong`
 
 布局：
-- 在`mungyeong.schema.yaml`中修改配置项`munmungyeong/layout`, 可选值 `dubeolsik`(2-set)、 `romaja`(韩语罗马字)，也可以参照注释添加自定义布局
+- 在`mungyeong.schema.yaml`中修改配置项`mungyeong/layout`, 可选值 `dubeolsik`(2-set)、 `romaja`(韩语罗马字)，也可以参照注释添加自定义布局
 
 反查:
 - 可在`mungyeong_reverse.extended.dict.yaml`自行增加、删除反查词典
