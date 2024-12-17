@@ -42,3 +42,18 @@
     layout: dubeolsik
   recognizer/patterns/mungyeong: '(^om[a-z\-]*$)'
 ```
+
+## 技术细节
+
+如果你看了mungyeong.schema.yaml，可能会发现，本方案没有一个所谓的“主翻译器”，而是用一个lua_translator代替。
+
+在这个lua_translator中，创建了两个transaltor，一个负责把字母输入转换成韩语字母（a），一个把韩语谚文转换成汉字词（b），而韩语字母转换成韩语谚文则是通过另一个lua实现的。
+
+通过这种分层实现，我们可以随时替换translator（a），达到切换按键布局的效果，且不需要改变词库。
+
+甚至，由于user_dict是依托于translator（b）的，切换布局并不会影响用户词频的复用。
+
+打开同步文件夹的mungyeong.userdb.txt，你会发现用户词编码都是韩语谚文，而不是具体的按键编码。
+
+顺便一提，作者的另一个日语输入方案[kagiroi](https://github.com/rimeinn/rime-kagiroi)也是使用的类似的形式。
+
