@@ -24,3 +24,21 @@
 
 反查:
 - 可在`mungyeong_reverse.extended.dict.yaml`自行增加、删除反查词典
+
+作为辅助输出：
+- 每个人的配置情况不同，以下仅供参考
+```yaml
+  # 在xxx.custom.yaml中，xxx为你的主方案
+  schema/dependencies/+:
+    - mungyeong
+    - mungyeong_dubeolsik
+  engine/segmentors/@before 5: affix_segmentor@mungyeong
+  engine/translators/+:
+    - lua_translator@*mungyeong/mungyeong_translator@as_addon #当带as_addon时，会将hangul作为第一个候选输出
+  mungyeong:
+    prefix: om
+    tips: 〔文镜〕
+    tag: mungyeong
+    layout: dubeolsik
+  recognizer/patterns/mungyeong: '(^om[a-z\-]*$)'
+```
