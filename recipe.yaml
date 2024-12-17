@@ -1,0 +1,11 @@
+# encoding: utf-8
+---
+recipe:
+  Rx: rime-mungyeong
+  description: >-
+    初步者를 為한 韓国語 入力機
+
+install_files: >-
+  lua/mungyeong/*.lua
+  opencc/*
+  mungyeong*.yaml
