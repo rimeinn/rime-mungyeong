@@ -16,11 +16,6 @@ switches:
   - name: ascii_mode
     reset: 0
     states: [ 한, 영 ]
-  - name: full_shape
-    states: [ 반각, 전각 ]
-  - name: ascii_punct
-    reset: 1
-    states: [ 。，, ．， ]
   - name: meaning
     reset: 1
     states: [ 無, 有 ]
@@ -63,7 +58,7 @@ translator:
   enable_sentence: false
 
 punctuator:
-  import_preset: default
+  __include: mungyeong:/punctuator
 
 editor:
   bindings:
@@ -97,7 +92,7 @@ reverse_lookup:
   dictionary: mungyeong_reverse.extended
   prefix: "`"
   suffix: "'"
-  tips: "〔反〕"
+  tips: "〔逆〕"
 
 recognizer:
   import_preset: default

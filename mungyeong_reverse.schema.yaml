@@ -1,6 +1,6 @@
 schema:
   schema_id: mungyeong_reverse
-  name: 文鏡
+  name: 文鏡逆檢索
   version: '20241213'
   author:
     - kuroame

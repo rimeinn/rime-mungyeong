@@ -11,3 +11,13 @@ preset_for_layout:
     delimiter: " '"
   translator:
     enable_user_dict: false
+
+# In Korean we don't use full shape punctuation marks.
+# Still, you can alter following settings as you like
+punctuator:
+  full_shape:
+    __include: punctuation:/ascii_style
+  half_shape:
+    __include: punctuation:/ascii_style
+  ascii_shape:
+    __include: punctuation:/ascii_style
