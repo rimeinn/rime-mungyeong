@@ -1,5 +1,9 @@
 <h1 align="center">文镜 문경</h1>
-<h4 align="center">面向初学者的韩语输入方案</h6>
+<h4 align="center">面向初学者的韩语输入方案</h4>
+
+## 安装
+- `℞ rimeinn/rime-mungyeong`
+-  [在线试用(2-set布局)](https://my-rime.vercel.app/?plum=rimeinn/rime-mungyeong:mungyeong,mungyeong_reverse,mungyeong_dubeolsik)
 
 ## 特点
 在与市面常用的韩语输入法输入体验一致的同时，更具备
@@ -16,9 +20,6 @@
 
 
 ## 说明
-安装：
-- `℞ rimeinn/rime-mungyeong`
-
 布局：
 - 在`mungyeong.schema.yaml`中修改配置项`mungyeong/layout`, 可选值 `dubeolsik`(2-set)、 `romaja`(韩语罗马字)，也可以参照注释添加自定义布局
 
