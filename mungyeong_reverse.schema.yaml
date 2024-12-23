@@ -1,22 +1,13 @@
 schema:
   schema_id: mungyeong_reverse
-  name: 文鏡逆檢索
+  name: 文鏡逆檢索(僞方案)
   version: '20241213'
-  author:
-    - kuroame
-  description: |
-    初步者를 為한 韓国語 入力機
 
 
 switches:
   - name: ascii_mode
     reset: 0
     states: [ 한, 영 ]
-  - name: full_shape
-    states: [ 반각, 전각 ]
-  - name: ascii_punct
-    reset: 1
-    states: [ 。，, ．， ]
 
 engine:
   processors:
