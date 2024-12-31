@@ -43,19 +43,19 @@ columns:
 ᅕ	ㅊ
 
 # 半ㅅ. 半齒音(日母)([ȵ]?) 을 表記하다. 標準語에서는 該當 音價가 사라졌다(ㅇ).
-ᅀ	ㅇ # 初聲半ㅅ
-ᇫ	ㅇ # 終聲半ㅅ
+ᅀ	ㅇ	# 初聲半ㅅ
+ᇫ	ㅇ	# 終聲半ㅅ
 
 # 옛이응, 異凝.
 # 訓民正音의 軟口蓋鼻音[ŋ] 을 表記하다.
 # 東國正韻에서는 初聲으로는 ㆁ으로 表記하고, 終聲으로는 ᇰ으로 表記하였다.
-ᅌ	ㅇ # 初聲옛이응
-ᇰ	ㅇ # 終聲옛이응
+ᅌ	ㅇ	# 初聲옛이응
+ᇰ	ㅇ	# 終聲옛이응
 
 # 여린이응, 된이응
 # 訓民正音의 聲門破裂音[ʔ] 을 表記하다.
-ᅙ	ㅎ # 初聲여린이응
-ᇹ	ㅎ # 終聲여린이응
+ᅙ	ㅎ	# 初聲여린이응
+ᇹ	ㅎ	# 終聲여린이응
 
 # 아래아
 # 訓民正音의 後舌圓脣低母音[ɒ] 을 表記하다.
@@ -267,75 +267,75 @@ columns:
 ퟻ	ㅍㅌ
 
 # 겹낱자(홀소리)
-ᅶ	ㅏㅗ # a-o, ao
-ᅷ	ㅏㅜ # a-u, au
-ᅸ	ㅑㅗ # ya-o, iao
-ᅹ	ㅑㅛ # ya-yo
-ᅺ	ㅓㅗ # eo-o
-ᅻ	ㅓㅜ # eo-u
-ᅼ	ㅓㅡ # eo-eu
-ᅽ	ㅕㅗ # yeo-o
-ᅾ	ㅕㅜ # yeo-u
-ᅿ	ㅗㅓ # o-eo
-ᆀ	ㅗㅔ # o-e
-ᆁ	ㅗㅖ # o-ye
-ᆂ	ㅗㅗ # o-o
-ᆃ	ㅗㅜ # o-u
-ᆄ	ㅛㅑ # yo-ya
-ᆅ	ㅛㅒ # yo-yae
-ᆆ	ㅛㅕ # yo-yeo
-ᆇ	ㅛㅗ # yo-o
-ᆈ	ㅛㅣ # yo-i
-ᆉ	ㅜㅏ # u-a
-ᆊ	ㅜㅐ # u-ae
-ᆋ	ㅝㅡ # u-eo-eu
-ᆌ	ㅜㅖ # u-ye
-ᆍ	ㅜㅜ # u-u
-ᆎ	ㅠㅏ # yu-a
-ᆏ	ㅠㅓ # yu-eo
-ᆐ	ㅠㅔ # yu-e
-ᆑ	ㅠㅕ # yu-yeo
-ᆒ	ㅠㅖ # yu-ye
-ᆓ	ㅠㅜ # yu-u
-ᆔ	ㅠㅣ # yu-i
-ᆕ	ㅡㅜ # eu-u
-ᆖ	ㅡㅡ # eu-eu
-ᆗ	ㅢㅜ # yi-u
-ᆘ	ㅣㅏ # i-a
-ᆙ	ㅣㅑ # i-ya
-ᆚ	ㅣㅗ  # i-o
-ᆛ	ㅣㅜ # i-u
-ᆜ	ㅣㅡ # i-eu 
-ᆝ	ㅣㅏ # i-araea
-ᆟ	ㅏㅓ # araea-eo
-ᆠ	ㅏㅜ # araea-u
-ᆡ	ㅏㅣ # araea-i
-ᆢ	ㅏㅏ # araea-araea
-ᆣ	ㅏㅡ # a-eu
-ᆤ	ㅑㅜ # ya-u
-ᆥ	ㅕㅑ # yeo-ya
-ᆦ	ㅗㅑ # o-ya
-ᆧ	ㅗㅒ # o-yae
-ힰ	ㅗㅕ # o-yeo
-ힱ	ㅗㅚ # o-o-i
-ힲ	ㅛㅏ # yo-a
-ힳ	ㅛㅐ # yo-ae
-ힴ	ㅛㅓ # yo-eo
-ힵ	ㅛㅕ # yo-yeo
-ힶ	ㅜㅣㅣ # u-i-i
-ힷ	ㅠㅐ # yu-ae
-ힸ	ㅠㅗ # yu-o
-ힹ	ㅡㅏ # eu-a
-ힺ	ㅡㅓ # eu-eo
-ힻ	ㅡㅔ # eu-e
-ힼ	ㅡㅗ # eu-o
-ힽ	ㅣㅑㅗ # i-ya-o
-ힾ	ㅣㅒ # i-yae  
-ힿ	ㅣㅕ # i-yeo
-ퟀ	ㅣㅖ # i-ye
-ퟁ	ㅣㅚ # i-o-i
-ퟂ	ㅣㅛ # i-yo
-ퟃ	ㅣㅠ # i-yu
-ퟄ	ㅣㅣ # i-i
-ퟅ	ㅏㅏ # araea-a
-ퟆ	ㅏㅔ # araea-e
+ᅶ	ㅏㅗ	# a-o, ao
+ᅷ	ㅏㅜ	# a-u, au
+ᅸ	ㅑㅗ	# ya-o, iao
+ᅹ	ㅑㅛ	# ya-yo
+ᅺ	ㅓㅗ	# eo-o
+ᅻ	ㅓㅜ	# eo-u
+ᅼ	ㅓㅡ	# eo-eu
+ᅽ	ㅕㅗ	# yeo-o
+ᅾ	ㅕㅜ	# yeo-u
+ᅿ	ㅗㅓ	# o-eo
+ᆀ	ㅗㅔ	# o-e
+ᆁ	ㅗㅖ	# o-ye
+ᆂ	ㅗㅗ	# o-o
+ᆃ	ㅗㅜ	# o-u
+ᆄ	ㅛㅑ	# yo-ya
+ᆅ	ㅛㅒ	# yo-yae
+ᆆ	ㅛㅕ	# yo-yeo
+ᆇ	ㅛㅗ	# yo-o
+ᆈ	ㅛㅣ	# yo-i
+ᆉ	ㅜㅏ	# u-a
+ᆊ	ㅜㅐ	# u-ae
+ᆋ	ㅝㅡ	# u-eo-eu
+ᆌ	ㅜㅖ	# u-ye
+ᆍ	ㅜㅜ	# u-u
+ᆎ	ㅠㅏ	# yu-a
+ᆏ	ㅠㅓ	# yu-eo
+ᆐ	ㅠㅔ	# yu-e
+ᆑ	ㅠㅕ	# yu-yeo
+ᆒ	ㅠㅖ	# yu-ye
+ᆓ	ㅠㅜ	# yu-u
+ᆔ	ㅠㅣ	# yu-i
+ᆕ	ㅡㅜ	# eu-u
+ᆖ	ㅡㅡ	# eu-eu
+ᆗ	ㅢㅜ	# yi-u
+ᆘ	ㅣㅏ	# i-a
+ᆙ	ㅣㅑ	# i-ya
+ᆚ	ㅣㅗ 	# i-o
+ᆛ	ㅣㅜ	# i-u
+ᆜ	ㅣㅡ	# i-eu 
+ᆝ	ㅣㅏ	# i-araea
+ᆟ	ㅏㅓ	# araea-eo
+ᆠ	ㅏㅜ	# araea-u
+ᆡ	ㅏㅣ	# araea-i
+ᆢ	ㅏㅏ	# araea-araea
+ᆣ	ㅏㅡ	# a-eu
+ᆤ	ㅑㅜ	# ya-u
+ᆥ	ㅕㅑ	# yeo-ya
+ᆦ	ㅗㅑ	# o-ya
+ᆧ	ㅗㅒ	# o-yae
+ힰ	ㅗㅕ	# o-yeo
+ힱ	ㅗㅚ	# o-o-i
+ힲ	ㅛㅏ	# yo-a
+ힳ	ㅛㅐ	# yo-ae
+ힴ	ㅛㅓ	# yo-eo
+ힵ	ㅛㅕ	# yo-yeo
+ힶ	ㅜㅣㅣ	# u-i-i
+ힷ	ㅠㅐ	# yu-ae
+ힸ	ㅠㅗ	# yu-o
+ힹ	ㅡㅏ	# eu-a
+ힺ	ㅡㅓ	# eu-eo
+ힻ	ㅡㅔ	# eu-e
+ힼ	ㅡㅗ	# eu-o
+ힽ	ㅣㅑㅗ	# i-ya-o
+ힾ	ㅣㅒ	# i-yae  
+ힿ	ㅣㅕ	# i-yeo
+ퟀ	ㅣㅖ	# i-ye
+ퟁ	ㅣㅚ	# i-o-i
+ퟂ	ㅣㅛ	# i-yo
+ퟃ	ㅣㅠ	# i-yu
+ퟄ	ㅣㅣ	# i-i
+ퟅ	ㅏㅏ	# araea-a
+ퟆ	ㅏㅔ	# araea-e
