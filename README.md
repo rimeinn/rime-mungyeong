@@ -17,7 +17,7 @@
 | 释义滤镜   |![image](https://github.com/user-attachments/assets/56923752-37dc-4275-92be-a264448111ff)|
 | 拼音反查(内置魔然自然码,也可自行替换成其他码表)  | ![image](https://github.com/user-attachments/assets/3b81bcf4-abf7-45fc-8546-92cc77262a9b)|
 | 日语罗马字反查|![image](https://github.com/user-attachments/assets/6d0e27e8-2917-466b-a715-47721558e664)|
-
+| 古韩语谚文| ![image](https://github.com/user-attachments/assets/88bdacdf-3c2e-4a91-b105-f007cc2c9b9b)
 
 ## 说明
 布局：
@@ -25,6 +25,18 @@
 
 反查:
 - 可在`mungyeong_reverse.extended.dict.yaml`自行增加、删除反查词典
+
+古韩语:
+- 与汉字候选一样，需要使用数字候选输入，不影响正常韩语输入
+- 古韩语字母根据形近或音近原则归并到现代韩语字母，例如
+  - ᄼ/ᄾ -> ㅅ
+  - ᅀ/ᅌ -> ㅇ
+  - ᅙ -> ㅎ
+  - ㆍ -> ㅏ
+- 复合母音/子音遵循同样依据上面的归并进行编码，例如
+  - ᅏ/ᅑ -> ㅉ
+  - ᄢ -> ㅂㅅㄱ
+  - ᆢ -> ㅏㅏ
 
 作为辅助输出：
 - 每个人的配置情况不同，以下仅供参考
