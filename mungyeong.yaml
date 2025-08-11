@@ -6,11 +6,13 @@ preset_for_layout:
       - abc_segmentor
     translators:
       - script_translator
-  speller:
-    alphabet: abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
-    delimiter: " '"
   translator:
     enable_user_dict: false
+
+key_bindings:
+  mungyeong_switches:
+    __append:
+      - { when: composing, accept: "Control+m", toggle: candidates }
 
 # In Korean we don't use full shape punctuation marks.
 # Still, you can alter following settings as you like

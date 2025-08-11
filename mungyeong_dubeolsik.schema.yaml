@@ -3,7 +3,10 @@ schema:
   name: 文鏡두벌式(僞方案)
   version: '20241213'
 
+speller:
+  alphabet: abcdeEfghijklmnoOpPqQrRstTuvwWxyz
+  delimiter: " '"
+
 translator:
   dictionary: mungyeong_dubeolsik
-
 __include: mungyeong:/preset_for_layout

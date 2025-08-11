@@ -4,9 +4,9 @@
 ---
 name: mungyeong.extended
 version: "20241213"
-sort: by_weight
+sort: original
 use_preset_vocabulary: false
 import_tables:
   - mungyeong.hanja
-  - mungyeong.hangul
+  # - mungyeong.hangul
 ...

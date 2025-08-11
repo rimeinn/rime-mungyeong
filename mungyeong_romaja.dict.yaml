@@ -3,7 +3,12 @@
 # license: public domain
 
 # korean romaja keyboard layout
-# follows the standard romanizing orthography of GongjinCheong
+# based on the standard romanizing orthography of Revised Romanization of Korean (國語의 로마字 表記法)
+# modifications for better input experience:
+# 1. shift + d(s,g) to get a fortis(경음)
+# 2. x for a initial ㅇ
+# 3. final consonants spells the same as initial consonants
+# 4. l=r y=i w=u(excepts ui=ㅢ wi=ㅟ) c=ch
 ---
 name: mungyeong_romaja
 version: "20241213"
@@ -20,6 +25,7 @@ use_preset_vocabulary: false
 ㅔ	e
 ㅓ	eo
 ㅡ	eu
+ㅢ	ui
 ㅢ	eui
 ㄹ	r
 ㅌ	t
@@ -30,9 +36,6 @@ use_preset_vocabulary: false
 ㅠ	yu
 ㅒ	yae
 ㅖ	ye
-ㅜ	u
-ㅟ	ui
-ㅣ	i
 ㅗ	o
 ㅚ	oe
 ㅍ	p
@@ -41,19 +44,39 @@ use_preset_vocabulary: false
 ㅅ	s
 ㅆ	S
 ㄷ	d
-ㄸ	T
-ㅍ	f
+ㄸ	D
 ㄱ	g
 ㄲ	G
 ㅎ	h
 ㅈ	j
 ㅉ	J
 ㅋ	k
-ㄹ	l
 ㅇ	x
-ㅇ	ng
 ㅊ	c
+ㅊ	ch
 ㅂ	b
 ㅃ	B
 ㄴ	n
 ㅁ	m
+ㅇ	ng
+ㅜ	u
+ㄹ	l
+ㅣ	i
+ㅍ	f
+ㅑ	ia
+ㅕ	ieo
+ㅛ	io
+ㅠ	iu
+ㅒ	iae
+ㅖ	ie
+ㅝ	uo
+ㅞ	ue
+# disambiguation
+ㄴㄱㅣ	n g y
+ㄴㄱㅣ	n g i
+ㄴㄱㅣ	n g y
+ㄴㄱㅜ	n g u
+ㄴㄱㅜ	n g w
+ㄴㄱㅔ	n g e
+ㄴㄱㅗ	n g o
+ㄴㄱㅏ	n g a

@@ -1,11 +1,11 @@
 schema:
   schema_id: mungyeong
   name: 文鏡
-  version: '20241213'
+  version: '20250807'
   author:
     - kuroame
   description: |
-    初步者를 為한 韓国語 入力機
+    韓国語入力機
   dependencies:
     - mungyeong_dubeolsik
     - mungyeong_romaja
@@ -16,27 +16,22 @@ switches:
   - name: ascii_mode
     reset: 0
     states: [ 한, 영 ]
-  - name: meaning
-    reset: 1
-    states: [ 無, 有 ]
+  - name: candidates
+    states: [ 無, 漢 ]
 
 engine:
   processors:
     - ascii_composer
+    - lua_processor@*mungyeong/mungyeong_hangul_speller
     - recognizer
     - key_binder
-    - speller
     - punctuator
     - selector
     - navigator
-    # Space is not to commit the first candidate, but to commit the current script text,
-    # just like the ordinary Korean input method.
-    - lua_processor@*mungyeong/mungyeong_auto_space_processor
     - express_editor
   segmentors:
     - ascii_segmentor
     - matcher
-    - abc_segmentor
     - punct_segmentor
     - fallback_segmentor
   translators:
@@ -44,12 +39,7 @@ engine:
     - reverse_lookup_translator
     - lua_translator@*mungyeong/mungyeong_translator
   filters:
-    - simplifier@meaning
-    - uniquifier
-
-speller:
-  alphabet: abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
-  delimiter: " '"
+    # - uniquifier
 
 translator:
   dictionary: mungyeong.extended
@@ -79,15 +69,6 @@ mungyeong:
   # Automatically insert a space after selecting a candidate or committing text
   auto_space: true
 
-meaning:
-  option_name: meaning
-  opencc_config: mungyeong_hanja_meaning.json
-  show_in_comment: true
-  tips: all
-  comment_form:
-    - "xform/-/ /"
-  tags: [abc]
-
 reverse_lookup:
   dictionary: mungyeong_reverse.extended
   prefix: "`"
@@ -98,6 +79,10 @@ recognizer:
   import_preset: default
   patterns:
     reverse_lookup: "^`[a-z]*'?$"
+    mungyeong: '(^[가-힣ㄱ-ㅎㅏ-ㅣ][가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z]*$)'
 
 key_binder:
   import_preset: default
+  bindings:
+    __patch:
+      - mungyeong:/key_bindings/mungyeong_switches

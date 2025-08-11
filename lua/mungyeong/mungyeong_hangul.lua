@@ -1,7 +1,6 @@
 -- mungyeong_hangul.lua
 -- Hangul analysis helper
 
-local utf8 = require("utf8")
 local Module = {}
 
 -- @param string utf8
@@ -61,6 +60,7 @@ function Module.utf8_char_iter(s)
 end
 
 local HANGUL_BASE = 0xAC00
+local HANGUL_END = 0xD7A3
 local ONSET_BASE = 21 * 28
 local VOWEL_BASE = 28
 local SPACE_CODEPOINT = 0x0020
@@ -78,6 +78,8 @@ local ON_SET = {
     [0x3145] = 9, -- ㅅ
     [0x3146] = 10, -- ㅆ
     [0x3147] = 11, -- ㅇ
+    [0x110B] = 11, -- ᄋ
+    [0x11BC] = 11, 
     [0x3148] = 12, -- ㅈ
     [0x3149] = 13, -- ㅉ
     [0x314A] = 14, -- ㅊ
@@ -134,6 +136,8 @@ local CODA_SET = {
     [0x3145] = 19, -- ㅅ
     [0x3146] = 20, -- ㅆ
     [0x3147] = 21, -- ㅇ
+    [0x11BC] = 21, -- ᆼ
+    [0x110B] = 21,
     [0x3148] = 22, -- ㅈ
     [0x314A] = 23, -- ㅊ
     [0x314B] = 24, -- ㅋ
@@ -178,7 +182,20 @@ local DOUBLE_CODA_MAP_REVERSE = {
     }
 }
 
-local Hangul = {on, vowel, coda}
+local function reverse_map(t)
+    local reversed = {}
+    for k, v in pairs(t) do
+        reversed[v] = k
+    end
+    return reversed
+end
+
+local ON_SET_REVERSE = reverse_map(ON_SET)
+local VOWEL_SET_REVERSE = reverse_map(VOWEL_SET)
+local CODA_SET_REVERSE = reverse_map(CODA_SET)
+CODA_SET_REVERSE[21] = 0x11BC
+ON_SET_REVERSE[11] = 0x110B
+local Hangul = {}
 
 function Hangul:new()
     local o = {
@@ -188,6 +205,31 @@ function Hangul:new()
     }
     setmetatable(o, self)
     self.__index = self
+    return o
+end
+
+function Hangul.from_lit(lit)
+    local o = Hangul:new()
+    if not lit or lit == "" then
+        return o
+    end
+    local code = utf8.codepoint(lit)
+    if code >= HANGUL_BASE and code <= HANGUL_END then
+        local offset = code - HANGUL_BASE
+        local on_idx = math.floor(offset / ONSET_BASE)
+        local vowel_idx = math.floor((offset % ONSET_BASE) / VOWEL_BASE)
+        local coda_idx = offset % VOWEL_BASE
+ 
+        o.on = ON_SET_REVERSE[on_idx]
+        o.vowel = VOWEL_SET_REVERSE[vowel_idx]
+        o.coda = CODA_SET_REVERSE[coda_idx]
+    else
+        if ON_SET[code] then
+            o.on = code
+        elseif VOWEL_SET[code] then
+            o.vowel = code
+        end
+    end
     return o
 end
 
@@ -249,6 +291,22 @@ function Hangul:detach_coda()
     end
 end
 
+-- Detach the last jamo from the hangul and return it
+--@return jamo
+function Hangul:detach()
+    local res = nil
+    if self:has_coda() then
+        res = self:detach_coda()
+    elseif self:has_vowel() then
+        res = self.vowel
+        self.vowel = SPACE_CODEPOINT
+    elseif self:has_on() then
+        res = self.on
+        self.on = SPACE_CODEPOINT
+    end
+    return res and utf8.char(res) or ""
+end
+
 -- Compose the hangul into a single character
 -- @return composed hangul
 function Hangul:compose()
@@ -273,7 +331,7 @@ end
 -- - Input: "ㅇㅏㅁㅣ" -> Output: "아미" (not "암ㅣ")
 -- @param jamo_str jamo string
 -- @return hangul string
-function Module.convert_jamo_to_hangul(jamo_str)
+function Hangul.convert_jamo_to_hangul(jamo_str)
     local hangul_list = {}
     local cur_hangul = Hangul:new()
     local prev_hangul = Hangul:new()
@@ -354,44 +412,4 @@ function Module.convert_jamo_to_hangul(jamo_str)
     end
     return hangul_str
 end
-
-------------------------------------------------------------
--- Test cases
-------------------------------------------------------------
--- local test_cases = {
---     {input = "ㄴㅏㅁ", expected = "남"},
---     {input = "ㅎㅏㄴ", expected = "한"},
---     {input = "ㄱㅜㄱ", expected = "국"},
-    
---     {input = "ㅇㅏㄴㅈ", expected = "앉"},
---     {input = "ㄷㅏㄹㄱ", expected = "닭"},
-    
---     {input = "ㅇㅏㅁㅣ", expected = "아미"},
---     {input = "ㅎㅏㄴㅡㄹ", expected = "하늘"},
-    
---     {input = "ㅇㅏㄴㅎㅏ", expected = "안하"},
-    
---     {input = "", expected = ""}, 
-    
---     {input = "ㅎㅏㄴㄱㅜㄱㅇㅓ", expected = "한국어"},
---     {input = "ㅇㅏㄴㄴㅕㅇ", expected = "안녕"},
-    
---     {input = "ㅇㅏㄹㅎㅏ", expected = "알하"},
-
---     {input = "ㅅㅂ", expected = "ㅅㅂ"},
--- }
-
--- for i, test in ipairs(test_cases) do
---     local result = Module.convert_jamo_to_hangul(test.input)
---     if result ~= test.expected then
---         print(string.format("Test case %d failed:", i))
---         print(string.format("Input: %s", test.input))
---         print(string.format("Expected: %s", test.expected))
---         print(string.format("Got: %s", result))
---         print("---")
---     else
---         print(string.format("Test case %d passed: %s -> %s", i, test.input, result))
---     end
--- end
-
-return Module
+return Hangul

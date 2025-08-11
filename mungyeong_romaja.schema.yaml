@@ -3,6 +3,10 @@ schema:
   name: 文鏡로마字(僞方案)
   version: '20241213'
 
+speller:
+  alphabet: abBcdefgGhijJklmnoprsStDuwxy
+  delimiter: " '"
+
 translator:
   dictionary: mungyeong_romaja
 
