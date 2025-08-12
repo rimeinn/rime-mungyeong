@@ -140,6 +140,15 @@ function Top.func(key_event, env)
     local ch = string.char(keycode)
     local engine = env.engine
     local context = engine.context
+    local last_seg = context.composition:back()
+    local input = context.input
+    if last_seg then
+        if not last_seg:has_tag("mungyeong") and (last_seg.start ~= 0 or input ~= env.prefix) then
+            return kNoop
+        end
+    elseif env.prefix ~= "" then
+        return kNoop
+    end
     if ch == " " then
         context:clear_non_confirmed_composition()
         context:commit()

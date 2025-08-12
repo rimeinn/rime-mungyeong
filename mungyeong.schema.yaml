@@ -10,19 +10,22 @@ schema:
     - mungyeong_dubeolsik
     - mungyeong_romaja
     - mungyeong_reverse
+    # - kagiroi
+    # - moran
 
 
 switches:
   - name: ascii_mode
-    reset: 0
     states: [ 한, 영 ]
   - name: candidates
     states: [ 無, 漢 ]
-
+  - name: meaning
+    states: [ 🚫📖 , 📖 ]
 engine:
   processors:
     - ascii_composer
     - lua_processor@*mungyeong/mungyeong_hangul_speller
+    # - lua_processor@*kagiroi/kagiroi_kana_speller # for kagiroi revserse lookup
     - recognizer
     - key_binder
     - punctuator
@@ -36,10 +39,12 @@ engine:
     - fallback_segmentor
   translators:
     - punct_translator
-    - reverse_lookup_translator
+    # - reverse_lookup_translator@kagiroi # for kagiroi # for kagiroi revserse lookup
+    # - reverse_lookup_translator@moran # for kagiroi # for moran revserse lookup
     - lua_translator@*mungyeong/mungyeong_translator
   filters:
-    # - uniquifier
+    - simplifier@meaning
+    - uniquifier
 
 translator:
   dictionary: mungyeong.extended
@@ -69,17 +74,40 @@ mungyeong:
   # Automatically insert a space after selecting a candidate or committing text
   auto_space: true
 
-reverse_lookup:
-  dictionary: mungyeong_reverse.extended
-  prefix: "`"
-  suffix: "'"
-  tips: "〔逆〕"
+meaning:
+  option_name: meaning
+  opencc_config: mungyeong_hanja_meaning.json
+  show_in_comment: true
+  tips: all
+  comment_form:
+    - "xform/-/ /"
+  tags: [mungyeong]
+
+kagiroi:
+  dictionary: kagiroi_kanji
+  prefix: 'K'
+  tag: kagiroi
+  tips: 〔カギロイ〕
+  layout: romaji
+  preedit_format:
+    - xform/^K//
+  speller:
+    __include: kagiroi:/alphabet/3_dan
+
+moran:
+  dictionary: moran.chars
+  prefix: "M"
+  tips: "〔魔然〕"
+  tag: moran
+  preedit_format:
+    - xform/^M//
 
 recognizer:
   import_preset: default
   patterns:
-    reverse_lookup: "^`[a-z]*'?$"
-    mungyeong: '(^[가-힣ㄱ-ㅎㅏ-ㅣ][가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z]*$)'
+    kagiroi: '^(?:K|\xE3\x81[\x81-\xBF]|\xE3\x82[\x80-\x9F]|\xE3\x83\xBC)(?:\xE3\x81[\x81-\xBF]|\xE3\x82[\x80-\x9F]|\xE3\x83\xBC|[a-z\-;])*$'
+    moran: "^M[a-z]*$"
+    mungyeong: '^(?:(?:\xEA[\xB0-\xBF]|\xEB[\x80-\xBF]|\xEC[\x80-\xBF]|\xED[\x80-\x9D])[\x80-\xBF]|\xED\x9E[\x80-\xA3]|\xE3\x84[\xB1-\xBF]|\xE3\x85[\x80-\xA3])(?:(?:(?:\xEA[\xB0-\xBF]|\xEB[\x80-\xBF]|\xEC[\x80-\xBF]|\xED[\x80-\x9D])[\x80-\xBF]|\xED\x9E[\x80-\xA3]|\xE3\x84[\xB1-\xBF]|\xE3\x85[\x80-\xA3])|[a-zA-Z])*$'
 
 key_binder:
   import_preset: default

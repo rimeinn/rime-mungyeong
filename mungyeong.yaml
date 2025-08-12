@@ -13,6 +13,7 @@ key_bindings:
   mungyeong_switches:
     __append:
       - { when: composing, accept: "Control+m", toggle: candidates }
+      - { when: composing, accept: "Control+s", toggle: meaning }
 
 # In Korean we don't use full shape punctuation marks.
 # Still, you can alter following settings as you like

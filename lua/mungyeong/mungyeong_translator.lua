@@ -7,7 +7,7 @@ local Top = {}
 
 function Top.init(env)
     env.translator = Component.Translator(env.engine, Schema("mungyeong"), "translator", "table_translator")
-    env.tag = env.engine.schema.config:get_string("mungyeong/tag") or ""
+    env.tag = env.engine.schema.config:get_string("mungyeong/tag") or "mungyeong"
 end
 
 function Top.fini(env)
@@ -41,7 +41,6 @@ function Top.query_translator(input, env)
         local nxt, thisobj = xlation:iter()
         return function()
             local cand = nxt(thisobj)
-            log.info("ca "..cand.text)
             return cand
         end
     end
