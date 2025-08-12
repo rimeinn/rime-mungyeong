@@ -113,10 +113,10 @@ function Top.init(env)
                     local next_bound = utf8.offset(input, 2, error_pos)
                     ctx.caret_pos = next_bound and next_bound - 1 or #input
                 end
+                env.last_code = ""
             else
                 last_caret_pos = ctx.caret_pos
                 env.cur_hangul = hangul.from_lit(utf8_sub(left_input, -1))
-                env.last_code = ""
             end
         end
     end, 0)
