@@ -80,6 +80,9 @@ function Top.init(env)
     local last_caret_pos = 0
     env.update_notifier = env.engine.context.update_notifier:connect(function(ctx)
         local input = ctx.input
+        if input == env.prefix then
+            env.last_code = ""
+        end
         local len, error_pos = utf8.len(input)
         local caret_pos = ctx.caret_pos
         if not len then
