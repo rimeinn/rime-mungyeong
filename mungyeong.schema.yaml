@@ -85,28 +85,28 @@ meaning:
 
 kagiroi:
   dictionary: kagiroi_kanji
-  prefix: 'K'
+  prefix: "J"
   tag: kagiroi
   tips: 〔カギロイ〕
   layout: romaji
   preedit_format:
-    - xform/^K//
+    - xform/^J//
   speller:
     __include: kagiroi:/alphabet/3_dan
 
 moran:
   dictionary: moran.chars
-  prefix: "M"
+  prefix: "C"
   tips: "〔魔然〕"
   tag: moran
   preedit_format:
-    - xform/^M//
+    - xform/^C//
 
 recognizer:
   import_preset: default
   patterns:
-    kagiroi: '^(?:K|\xE3\x81[\x81-\xBF]|\xE3\x82[\x80-\x9F]|\xE3\x83\xBC)(?:\xE3\x81[\x81-\xBF]|\xE3\x82[\x80-\x9F]|\xE3\x83\xBC|[a-z\-;])*$'
-    moran: "^M[a-z]*$"
+    kagiroi: '^(?:J|\xE3\x81[\x81-\xBF]|\xE3\x82[\x80-\x9F]|\xE3\x83\xBC)(?:\xE3\x81[\x81-\xBF]|\xE3\x82[\x80-\x9F]|\xE3\x83\xBC|[a-z\-;])*$'
+    moran: "^C[a-z]*$"
     mungyeong: '^(?:(?:\xEA[\xB0-\xBF]|\xEB[\x80-\xBF]|\xEC[\x80-\xBF]|\xED[\x80-\x9D])[\x80-\xBF]|\xED\x9E[\x80-\xA3]|\xE3\x84[\xB1-\xBF]|\xE3\x85[\x80-\xA3])(?:(?:(?:\xEA[\xB0-\xBF]|\xEB[\x80-\xBF]|\xEC[\x80-\xBF]|\xED[\x80-\x9D])[\x80-\xBF]|\xED\x9E[\x80-\xA3]|\xE3\x84[\xB1-\xBF]|\xE3\x85[\x80-\xA3])|[a-zA-Z])*$'
 
 key_binder:
