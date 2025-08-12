@@ -3,7 +3,7 @@
 
 ## 安装
 - `℞ rimeinn/rime-mungyeong`
--  [在线试用(2-set布局)](https://my-rime.vercel.app/?plum=rimeinn/rime-mungyeong:mungyeong)
+-  [在线试用(2-set布局)](https://my-rime.vercel.app/?plum=rimeinn/rime-mungyeong:mungyeong,mungyeong_dubeolsik)
 
 ## 特点
 在与市面常用的韩语输入法输入体验一致的同时，更具备
