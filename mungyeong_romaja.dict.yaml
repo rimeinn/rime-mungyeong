@@ -2,13 +2,13 @@
 # encoding: utf-8
 # license: public domain
 
-# korean romaja keyboard layout
-# based on the standard romanizing orthography of Revised Romanization of Korean (國語의 로마字 表記法)
-# modifications for better input experience:
-# 1. shift + d(s,g) to get a fortis(경음)
-# 2. x for a initial ㅇ
-# 3. final consonants spells the same as initial consonants
-# 4. l=r y=i w=u(excepts ui=ㅢ wi=ㅟ) c=ch
+# Korean Romaja Keyboard Layout
+# Based on Revised Romanization of Korean (國語의 로마字 表記法)
+# Modifications for a better input experience:
+# 1. Shift + d/s/g/j/b for fortis consonants (경음)
+# 2. 'x' for an initial ㅇ
+# 3. Final consonants spelled the same as initial consonants
+# 4. l=r, y=i, w=u (except ui=ㅢ, wi=ㅟ), c=ch
 ---
 name: mungyeong_romaja
 version: "20241213"

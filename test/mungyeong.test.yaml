@@ -1,0 +1,158 @@
+schema: mungyeong
+source_dir: ..
+
+deploy:
+  default:
+    tests:
+      # 1. 基本的辅音和元音输入
+      - send: r
+        assert: preedit == "ㄱ"
+      - send: k
+        assert: preedit == "ㅏ"
+      - send: d
+        assert: preedit == "ㅇ"
+
+      # 2. 紧音（双辅音）输入
+      - send: R
+        assert: preedit == "ㄲ"
+      - send: W
+        assert: preedit == "ㅉ"
+      - send: T
+        assert: preedit == "ㅆ"
+
+      # 3. 简单的音节合成 (CV - Consonant + Vowel)
+      - send: rk
+        assert: preedit == "가"  # ㄱ + ㅏ
+      - send: sk
+        assert: preedit == "나"  # ㄴ + ㅏ
+      - send: dk
+        assert: preedit == "아"  # ㅇ + ㅏ
+
+      # 4. 合成带末尾辅音（收音）的音节
+      - send: rkr
+        assert: preedit == "각"  # 가 + ㄱ
+      - send: gks
+        assert: preedit == "한"  # ㅎ + ㅏ + ㄴ
+      - send: qkd
+        assert: preedit == "방"  # ㅂ + ㅏ + ㅇ
+
+      # 5. 合成带双末尾辅音（收音）的音节
+      - send: ekfr
+        assert: preedit == "닭"  # ㄷ + ㅏ + ㄺ (ㄹ+ㄱ)
+      - send: djqt
+        assert: preedit == "없"  # ㅇ + ㅓ + ㅄ (ㅂ+ㅅ)
+      - send: rkrt
+        assert: preedit == "갃"  # ㄱ + ㅏ +  ㄳ(ㄱ+ㅅ)
+
+      # 6. 音节的自动组合与分离
+      - send: gksr
+        assert: preedit == "한ㄱ" # 应该显示 "한" 加上一个
+      - send: gksrnr
+        assert: preedit == "한국" # ㅎ+ㅏ+ㄴ, ㄱ+ㅜ+ㄱ
+      - send: "rk rk"
+        assert: commit == "가 " and preedit == "가"
+      
+      # 7. 退格键 (BackSpace) 测试
+      - send: gksrnr{BackSpace}
+        assert: preedit == "한구" # 从 "한국" 删除末尾的 "ㄱ"
+      - send: gksrnr{BackSpace}{BackSpace}{BackSpace}
+        assert: preedit == "한"   # 从 "한국" 删除 "ㄱ"  "ㅜ"  "ㄱ"
+      - send: gks{BackSpace}
+        assert: preedit == "하"   # 从 "한" (ㅎ+ㅏ+ㄴ) 删除 "ㄴ"
+      - send: gks{BackSpace}{BackSpace}
+        assert: preedit == "ㅎ"   # 从 "한" 删除 "ㄴ" 和 "ㅏ"
+      - send: r{BackSpace}
+        assert: preedit == nil      # 删除单个辅音
+      - send: gksrnr{BackSpace}r
+        assert: preedit == "한국" # ㅎ+ㅏ+ㄴ, ㄱ+ㅜ, delete ㄱ, re-type ㄱ -> ㅎ+ㅏ+ㄴ, ㄱ+ㅜ+ㄱ
+      - send: gks{BackSpace}s
+        assert: preedit == "한" # ㅎ+ㅏ, delete ㄴ, re-type ㄴ -> ㅎ+ㅏ+ㄴ
+      - send: ekfr{BackSpace}a
+        assert: preedit == "닮"  # ㄷ+ㅏ+ㄹ+ㄱ, delete ㄱ, re-type ㅁ -> ㄷ+ㅏ+ㄹ+ㅁ
+
+      # 8. 提交字符 (Commit) 测试
+      - send: "gksrnr "
+        assert: commit == "한국 "
+
+      # 9. 光标移动后输入
+      - send: gksrnr{Left}k
+        assert: preedit == "하나국" # 在 "한국" 中间插入元音 "ㅏ", "ㄴ"与"ㅏ"重组成"나"
+      - send: ekfrrhrl{Left}{Left}p
+        assert: preedit == "달게고기" # 在 "닭고기" 中间插入元音 "ㅔ", "ㄺ"拆开重组成"달게"
+      - send: gksrnr{Left}t
+        assert: preedit == "한ㅅ국" # 在 "한국" 中间插入辅音 "ㅅ", 无法重组, 直接插入
+  
+  romaja:
+    patch:
+      mungyeong/layout: "romaja"
+    tests:
+      # 1. 基本的辅音和元音输入
+      - send: g
+        assert: preedit == "ㄱ"
+      - send: a
+        assert: preedit == "ㅏ"
+      - send: x
+        assert: preedit == "ㅇ"   # 'x' for initial 'ㅇ'
+      # 2. 紧音（双辅音）输入
+      - send: G # Shift + g
+        assert: preedit == "ㄲ"
+      - send: J # Shift + j
+        assert: preedit == "ㅉ"
+      - send: S # Shift + s
+        assert: preedit == "ㅆ"
+      # 3. 简单的音节合成 (CV - Consonant + Vowel)
+      - send: ga
+        assert: preedit == "가"  # g + a
+      - send: na
+        assert: preedit == "나"  # n + a
+      - send: xa
+        assert: preedit == "아"  # x(ㅇ) + a
+      # 4. 合成带末尾辅音（收音）的音节
+      - send: gag
+        assert: preedit == "각"  # g + a + g
+      - send: han
+        assert: preedit == "한"  # h + a + n
+      - send: bang
+        assert: preedit == "방"  # b + a + ng(ㅇ)
+      # 5. 合成带双末尾辅音（收音）的音节
+      - send: dalg
+        assert: preedit == "닭"  # d + a + l + g
+      - send: xeobs
+        assert: preedit == "없"  # x(ㅇ) + eo + b + s
+      - send: gags
+        assert: preedit == "갃"  # g + a + g + s
+      # 6. 音节的自动组合与分离
+      - send: hang
+        assert: preedit == "항" 
+      - send: hangug
+        assert: preedit == "한국" # h+a+n, g+u+g
+      - send: "ga ga"
+        assert: commit == "가 " and preedit == "가"
+      
+      # 7. 退格键 (BackSpace) 测试
+      - send: hangug{BackSpace}
+        assert: preedit == "한구" # 从 "한국" 删除末尾的 "g"
+      - send: hangug{BackSpace}{BackSpace}{BackSpace}
+        assert: preedit == "한"   # 从 "한국" 删除 "g", "u", "g"
+      - send: han{BackSpace}
+        assert: preedit == "하"   # 从 "한" (h+a+n) 删除 "n"
+      - send: han{BackSpace}{BackSpace}
+        assert: preedit == "ㅎ"   # 从 "한" 删除 "n" 和 "a"
+      - send: g{BackSpace}
+        assert: preedit == nil      # 删除单个辅音
+      - send: hangug{BackSpace}g
+        assert: preedit == "한국" # 测试删除后重输: 한구 -> 한국
+      - send: han{BackSpace}n
+        assert: preedit == "한"   # 测试删除后重输: 하 -> 한
+      - send: dalg{BackSpace}m
+        assert: preedit == "닮"  # 测试双收音变化: 닭 -> 달 -> 닮
+      # 8. 提交字符 (Commit) 测试
+      - send: "hangug "
+        assert: commit == "한국 "
+      # 9. 光标移动后输入
+      - send: hangug{Left}a
+        assert: preedit == "하나국" # 在 "한국" 中间插入元音 "ㅏ", "ㄴ"与"ㅏ"重组成"나"
+      - send: dalggogi{Left}{Left}e
+        assert: preedit == "달게고기" # 在 "닭고기" 中间插入元音 "ㅔ", "ㄺ"拆开重组成"달게"
+      - send: hangug{Left}s
+        assert: preedit == "한ㅅ국" # 在 "한국" 中间插入辅音 "ㅅ", 无法重组, 直接插入
