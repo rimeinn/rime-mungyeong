@@ -92,7 +92,7 @@ kagiroi:
   preedit_format:
     - xform/^J//
   speller:
-    __include: kagiroi:/alphabet/3_dan
+    alphabet: -qwertyuiopasdfghjkl;zxcvbnm
 
 moran:
   dictionary: moran.chars
