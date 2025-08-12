@@ -1,4 +1,5 @@
 <h1 align="center">文镜 문경</h1>
+<h3 align="center">rime韩语输入方案</h3>
 
 ## 安装
 - `℞ rimeinn/rime-mungyeong`
@@ -13,11 +14,11 @@
 ## 示例
 | 功能  | 截图|
 |--------|--------|
-| 汉字选单(Control+m开启)   |![image]()|
-| 释义滤镜(Control+s开启)   |![image]()|
-| 自然码反查(需安装魔然方案) | ![image]()|
-| 日语反查(需安装kagiroi方案)|![image]()|
-| 古韩语谚文| ![image](https://github.com/user-attachments/assets/88bdacdf-3c2e-4a91-b105-f007cc2c9b9b)
+| 汉字选单(`Control+m`开启/关闭)   |![image](https://github.com/user-attachments/assets/6c0ca7be-5d84-4881-a888-a59cdb87f767)|
+| 释义滤镜(`Control+s`开启/关闭)   |![image](https://github.com/user-attachments/assets/9d81352a-0d10-4a28-b9fd-9c86ce823c39)|
+| `C`引导自然码反查(需安装魔然方案) | ![image](https://github.com/user-attachments/assets/cf9bcd34-8278-43c6-a19a-2deb1d76870b)|
+| `J`日语反查(需安装 kagiroi 方案)|![image](https://github.com/user-attachments/assets/5e7966c7-12af-4419-b6f5-9aec748bd187)|
+| 古韩语字母| ![image](https://github.com/user-attachments/assets/88bdacdf-3c2e-4a91-b105-f007cc2c9b9b)
 
 ## 说明
 #### 布局：
@@ -26,10 +27,10 @@
 #### 反查:
 - 配置文件预先设置好了反查配置，解除对应的注释即可使用
 - 使用反查前请确保已经安装了该反查所依赖的方案
-  - moran (℞ rimeinn/rime-moran) 
+  - moran `℞ rimeinn/rime-moran`
     - 自然码+辅助码反查 [仓库地址](https://github.com/rimeinn/rime-moran/)
     - `C` 引导
-  - kagiroi (℞ rimeinn/rime-kagiroi)
+  - kagiroi `℞ rimeinn/rime-kagiroi`
     - 日语反查 [仓库地址](https://github.com/rimeinn/rime-kagiroi/)
     - `J` 引导
 - 也可以使用其他方案进行反查，参照配置添加即可
@@ -47,4 +48,4 @@
   - ᄢ -> ㅂㅅㄱ
   - ᆢ -> ㅏㅏ
 
-具体可参考 [mungyeong.hangul.dict.yaml]()
+具体可参考 [mungyeong.hangul.dict.yaml](https://github.com/rimeinn/rime-mungyeong/blob/main/mungyeong.hangul.dict.yaml)
