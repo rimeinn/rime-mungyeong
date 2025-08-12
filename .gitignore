@@ -16,7 +16,6 @@ pinyin_simp*
 sync/
 .env
 .pdm-python
-default.yaml
 rime_*
 installation.yaml
 kagiroi*
