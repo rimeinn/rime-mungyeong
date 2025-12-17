@@ -276,7 +276,7 @@ end
 -- Detach the coda from the hangul and return it
 -- @return detached coda
 function Hangul:detach_coda()
-    if not self:has_coda() == nil then
+    if not self:has_coda() then
         return nil
     end
     -- If it has a double coda, decompose it
