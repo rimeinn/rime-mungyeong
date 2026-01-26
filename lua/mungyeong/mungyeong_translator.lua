@@ -6,7 +6,7 @@
 local Top = {}
 
 function Top.init(env)
-    env.translator = Component.Translator(env.engine, Schema("mungyeong"), "translator", "table_translator")
+    env.translator = Component.Translator(env.engine, Schema("mungyeong"), "translator", "script_translator")
     env.tag = env.engine.schema.config:get_string("mungyeong/tag") or "mungyeong"
 end
 

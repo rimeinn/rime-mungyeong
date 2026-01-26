@@ -142,6 +142,21 @@ function Top.func(key_event, env)
     local context = engine.context
     local last_seg = context.composition:back()
     local input = context.input
+
+    -- Special: for moran_aux_filter
+    if input then
+        if input:find("`") then
+            context:push_input(ch)
+            return kAccepted
+        end
+        if ch == "`" then
+            env.cur_hangul = hangul:new()
+            env.last_code = ""
+            context:push_input("`")
+            return kAccepted
+        end
+    end
+
     if last_seg then
         if not last_seg:has_tag("mungyeong") and (last_seg.start ~= 0 or input ~= env.prefix) then
             return kNoop
