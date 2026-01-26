@@ -52,6 +52,8 @@ translator:
   enable_user_dict: true
   enable_completion: false
   enable_sentence: false
+  preedit_format:
+    - xform/ //
 
 punctuator:
   __include: mungyeong:/punctuator
