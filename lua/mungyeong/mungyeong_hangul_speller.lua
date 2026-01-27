@@ -145,7 +145,7 @@ function Top.func(key_event, env)
 
     -- Special: for moran_aux_filter
     if input then
-        if input:find("`") then
+	if input:find("`") and ch:match("^[a-z]$") then
             context:push_input(ch)
             return kAccepted
         end
@@ -165,7 +165,9 @@ function Top.func(key_event, env)
         return kNoop
     end
     if ch == " " then
-        context:clear_non_confirmed_composition()
+	if not input:find("`") then
+	    context:clear_non_confirmed_composition()
+	end
         context:commit()
         env.cur_hangul = hangul:new()
         if env.auto_space then
