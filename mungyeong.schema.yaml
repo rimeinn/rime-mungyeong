@@ -117,5 +117,3 @@ key_binder:
   bindings:
     __patch:
       - mungyeong:/key_bindings/mungyeong_switches
-
-__patch: mungyeong.custom:/patch?
