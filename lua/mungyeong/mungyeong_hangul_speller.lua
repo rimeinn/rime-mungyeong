@@ -165,10 +165,12 @@ function Top.func(key_event, env)
         return kNoop
     end
     if ch == " " then
-	if not input:find("`") then
+	if input:find("`") then
+            context:select(0)
+	else
 	    context:clear_non_confirmed_composition()
+	    context:commit()
 	end
-        context:commit()
         env.cur_hangul = hangul:new()
         if env.auto_space then
             engine:commit_text(" ")
