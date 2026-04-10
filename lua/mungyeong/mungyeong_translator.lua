@@ -5,6 +5,21 @@
 -- author: kuroame
 local Top = {}
 
+local function rebase_candidate(cand, seg)
+    local rebased = Candidate(
+        cand.type,
+        seg.start + cand.start,
+        seg.start + cand._end,
+        cand.text,
+        cand.comment or ""
+    )
+    rebased.preedit = cand.preedit
+    if cand.quality then
+        rebased.quality = cand.quality
+    end
+    return rebased
+end
+
 function Top.init(env)
     env.translator = Component.Translator(env.engine, Schema("mungyeong"), "translator", "script_translator")
     env.tag = env.engine.schema.config:get_string("mungyeong/tag") or "mungyeong"
@@ -28,7 +43,7 @@ function Top.func(input, seg, env)
     end
     if env.engine.context:get_option("candidates") then 
         for hanja_cand in Top.query_translator(input, env) do
-            yield(hanja_cand)
+            yield(rebase_candidate(hanja_cand, seg))
         end
     end
 end
