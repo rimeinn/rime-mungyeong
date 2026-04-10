@@ -5,21 +5,6 @@
 -- author: kuroame
 local Top = {}
 
-local function rebase_candidate(cand, seg)
-    local rebased = Candidate(
-        cand.type,
-        seg.start + cand.start,
-        seg.start + cand._end,
-        cand.text,
-        cand.comment or ""
-    )
-    rebased.preedit = cand.preedit
-    if cand.quality then
-        rebased.quality = cand.quality
-    end
-    return rebased
-end
-
 function Top.init(env)
     env.translator = Component.Translator(env.engine, Schema("mungyeong"), "translator", "script_translator")
     env.tag = env.engine.schema.config:get_string("mungyeong/tag") or "mungyeong"
@@ -34,6 +19,16 @@ function Top.func(input, seg, env)
     if env.tag ~= "" and not seg:has_tag(env.tag) then
         return
     end
+    if input:find("`", 1, true) or input:match("%d") then
+        log.info(string.format(
+            "mgy_translator input=%s seg=[%s,%s] tags[m=%s k=%s]",
+            input,
+            tostring(seg.start),
+            tostring(seg._end),
+            tostring(seg:has_tag("mungyeong")),
+            tostring(seg:has_tag("kagiroi"))
+        ))
+    end
     local start = seg.start
     local _end = seg._end
     if env.name_space == "as_addon" then
@@ -42,16 +37,26 @@ function Top.func(input, seg, env)
         yield(hangul_candidate)
     end
     if env.engine.context:get_option("candidates") then 
-        for hanja_cand in Top.query_translator(input, env) do
-            yield(rebase_candidate(hanja_cand, seg))
+        for hanja_cand in Top.query_translator(input, seg, env) do
+            if input:find("`", 1, true) or input:match("%d") then
+                log.info(string.format(
+                    "mgy_translator cand type=%s text=%s preedit=%s start=%s end=%s",
+                    tostring(hanja_cand.type),
+                    tostring(hanja_cand.text),
+                    tostring(hanja_cand.preedit),
+                    tostring(hanja_cand.start),
+                    tostring(hanja_cand._end)
+                ))
+            end
+            yield(hanja_cand)
         end
     end
 end
 -- translate input string to hanja
-function Top.query_translator(input, env)
-    local seg = Segment(0, #input)
-    seg.tags = Set({"abc"})
-    local xlation = env.translator:query(input, seg)
+function Top.query_translator(input, seg, env)
+    local query_seg = Segment(seg.start, seg._end)
+    query_seg.tags = Set({"abc"})
+    local xlation = env.translator:query(input, query_seg)
     if xlation then
         local nxt, thisobj = xlation:iter()
         return function()
