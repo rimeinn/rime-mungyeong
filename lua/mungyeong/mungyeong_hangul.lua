@@ -195,6 +195,15 @@ local VOWEL_SET_REVERSE = reverse_map(VOWEL_SET)
 local CODA_SET_REVERSE = reverse_map(CODA_SET)
 CODA_SET_REVERSE[21] = 0x11BC
 ON_SET_REVERSE[11] = 0x110B
+
+local DISPLAY_JAMO_MAP = {
+    [0x110B] = 0x3147, -- ᄋ -> ㅇ
+    [0x11BC] = 0x3147  -- ᆼ -> ㅇ
+}
+
+local function to_display_jamo(codepoint)
+    return DISPLAY_JAMO_MAP[codepoint] or codepoint
+end
 local Hangul = {}
 
 function Hangul:new()
@@ -320,7 +329,11 @@ end
 -- Convert the hangul into a jamo string
 -- @return jamo string
 function Hangul:to_jamo_string()
-    return (utf8.char(self.on) .. utf8.char(self.vowel) .. utf8.char(self.coda)):gsub(" ", "")
+    return (
+        utf8.char(to_display_jamo(self.on)) ..
+        utf8.char(to_display_jamo(self.vowel)) ..
+        utf8.char(to_display_jamo(self.coda))
+    ):gsub(" ", "")
 end
 
 -- Convert a string of jamo into a string of hangul syllables.
