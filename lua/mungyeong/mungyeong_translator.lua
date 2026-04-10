@@ -19,16 +19,6 @@ function Top.func(input, seg, env)
     if env.tag ~= "" and not seg:has_tag(env.tag) then
         return
     end
-    if input:find("`", 1, true) or input:match("%d") then
-        log.info(string.format(
-            "mgy_translator input=%s seg=[%s,%s] tags[m=%s k=%s]",
-            input,
-            tostring(seg.start),
-            tostring(seg._end),
-            tostring(seg:has_tag("mungyeong")),
-            tostring(seg:has_tag("kagiroi"))
-        ))
-    end
     local start = seg.start
     local _end = seg._end
     if env.name_space == "as_addon" then
@@ -38,16 +28,6 @@ function Top.func(input, seg, env)
     end
     if env.engine.context:get_option("candidates") then 
         for hanja_cand in Top.query_translator(input, seg, env) do
-            if input:find("`", 1, true) or input:match("%d") then
-                log.info(string.format(
-                    "mgy_translator cand type=%s text=%s preedit=%s start=%s end=%s",
-                    tostring(hanja_cand.type),
-                    tostring(hanja_cand.text),
-                    tostring(hanja_cand.preedit),
-                    tostring(hanja_cand.start),
-                    tostring(hanja_cand._end)
-                ))
-            end
             yield(hanja_cand)
         end
     end
