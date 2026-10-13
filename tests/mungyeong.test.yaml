@@ -1,6 +1,12 @@
 schema: mungyeong
 source_dir: ..
 
+script: |
+  function eq(actual, expected)
+    print("actual=" .. tostring(actual) .. " expected=" .. tostring(expected))
+    return actual == expected
+  end
+
 deploy:
   default:
     tests:
@@ -82,6 +88,109 @@ deploy:
       - send: gksrnr{Left}t
         assert: preedit == "한ㅅ국" # 在 "한국" 中间插入辅音 "ㅅ", 无法重组, 直接插入
   
+
+      # BackSpace regressions: compound vowels and editing after deletion
+      - send: ekfr{BackSpace}
+        assert: eq(preedit, "달")
+      - send: rhk
+        assert: eq(preedit, "과")
+      - send: rhk{BackSpace}
+        assert: eq(preedit, "고")
+      - send: rhk{BackSpace}l
+        assert: eq(preedit, "괴")
+      - send: hk{BackSpace}
+        assert: eq(preedit, "ㅗ")
+      - send: rnp{BackSpace}
+        assert: eq(preedit, "구")
+      - send: rhl{BackSpace}
+        assert: eq(preedit, "고")
+      - send: rml{BackSpace}
+        assert: eq(preedit, "그")
+      - send: R{BackSpace}
+        assert: eq(preedit, nil)
+      - send: rkR{BackSpace}
+        assert: eq(preedit, "가")
+      - send: gksrnr{Left}{BackSpace}
+        assert: eq(preedit, "하국")
+      - send: gksrnr{Home}{BackSpace}
+        assert: eq(preedit, "한국")
+      - send: gksrnr{Home}{Delete}
+        assert: eq(preedit, "국")
+      - send: rhk{BackSpace}{BackSpace}
+        assert: eq(preedit, "ㄱ")
+      - send: rhk{BackSpace}{BackSpace}{BackSpace}
+        assert: eq(preedit, nil)
+      - send: rhks{BackSpace}
+        assert: eq(preedit, "과")
+      - send: rho
+        assert: eq(preedit, "괘")
+      - send: rho{BackSpace}
+        assert: eq(preedit, "고")
+      - send: rho{BackSpace}{BackSpace}
+        assert: eq(preedit, "ㄱ")
+      - send: rho{BackSpace}{BackSpace}{BackSpace}
+        assert: eq(preedit, nil)
+      - send: rhos{BackSpace}
+        assert: eq(preedit, "괘")
+      - send: rhl
+        assert: eq(preedit, "괴")
+      - send: rhl{BackSpace}{BackSpace}
+        assert: eq(preedit, "ㄱ")
+      - send: rhl{BackSpace}{BackSpace}{BackSpace}
+        assert: eq(preedit, nil)
+      - send: rhls{BackSpace}
+        assert: eq(preedit, "괴")
+      - send: rnj
+        assert: eq(preedit, "궈")
+      - send: rnj{BackSpace}
+        assert: eq(preedit, "구")
+      - send: rnj{BackSpace}{BackSpace}
+        assert: eq(preedit, "ㄱ")
+      - send: rnj{BackSpace}{BackSpace}{BackSpace}
+        assert: eq(preedit, nil)
+      - send: rnjs{BackSpace}
+        assert: eq(preedit, "궈")
+      - send: rnp
+        assert: eq(preedit, "궤")
+      - send: rnp{BackSpace}{BackSpace}
+        assert: eq(preedit, "ㄱ")
+      - send: rnp{BackSpace}{BackSpace}{BackSpace}
+        assert: eq(preedit, nil)
+      - send: rnps{BackSpace}
+        assert: eq(preedit, "궤")
+      - send: rnl
+        assert: eq(preedit, "귀")
+      - send: rnl{BackSpace}
+        assert: eq(preedit, "구")
+      - send: rnl{BackSpace}{BackSpace}
+        assert: eq(preedit, "ㄱ")
+      - send: rnl{BackSpace}{BackSpace}{BackSpace}
+        assert: eq(preedit, nil)
+      - send: rnls{BackSpace}
+        assert: eq(preedit, "귀")
+      - send: rml
+        assert: eq(preedit, "긔")
+      - send: rml{BackSpace}{BackSpace}
+        assert: eq(preedit, "ㄱ")
+      - send: rml{BackSpace}{BackSpace}{BackSpace}
+        assert: eq(preedit, nil)
+      - send: rmls{BackSpace}
+        assert: eq(preedit, "긔")
+      - send: hk{BackSpace}{BackSpace}
+        assert: eq(preedit, nil)
+      - send: rhk{BackSpace}k
+        assert: eq(preedit, "과")
+      - send: rhk{BackSpace}s
+        assert: eq(preedit, "곤")
+      - send: rhkrk{Left}{BackSpace}
+        assert: eq(preedit, "고가")
+      - send: rhkrk{Left}{BackSpace}l
+        assert: eq(preedit, "괴가")
+      - send: ro{BackSpace}
+        assert: eq(preedit, "ㄱ")
+      - send: rO{BackSpace}
+        assert: eq(preedit, "ㄱ")
+
   romaja:
     patch:
       mungyeong/layout: "romaja"
@@ -156,3 +265,87 @@ deploy:
         assert: preedit == "달게고기" # 在 "닭고기" 中间插入元音 "ㅔ", "ㄺ"拆开重组成"달게"
       - send: hangug{Left}s
         assert: preedit == "한ㅅ국" # 在 "한국" 中间插入辅音 "ㅅ", 无法重组, 直接插入
+
+      # Compound-vowel deletion follows Hangul components in every layout.
+      - send: gwa
+        assert: eq(preedit, "과")
+      - send: gwa{BackSpace}
+        assert: eq(preedit, "고")
+      - send: gwa{BackSpace}{BackSpace}
+        assert: eq(preedit, "ㄱ")
+      - send: gwa{BackSpace}{BackSpace}{BackSpace}
+        assert: eq(preedit, nil)
+      - send: gwan{BackSpace}
+        assert: eq(preedit, "과")
+      - send: gwae
+        assert: eq(preedit, "괘")
+      - send: gwae{BackSpace}
+        assert: eq(preedit, "고")
+      - send: gwae{BackSpace}{BackSpace}
+        assert: eq(preedit, "ㄱ")
+      - send: gwae{BackSpace}{BackSpace}{BackSpace}
+        assert: eq(preedit, nil)
+      - send: gwaen{BackSpace}
+        assert: eq(preedit, "괘")
+      - send: goe
+        assert: eq(preedit, "괴")
+      - send: goe{BackSpace}
+        assert: eq(preedit, "고")
+      - send: goe{BackSpace}{BackSpace}
+        assert: eq(preedit, "ㄱ")
+      - send: goe{BackSpace}{BackSpace}{BackSpace}
+        assert: eq(preedit, nil)
+      - send: goen{BackSpace}
+        assert: eq(preedit, "괴")
+      - send: gwo
+        assert: eq(preedit, "궈")
+      - send: gwo{BackSpace}
+        assert: eq(preedit, "구")
+      - send: gwo{BackSpace}{BackSpace}
+        assert: eq(preedit, "ㄱ")
+      - send: gwo{BackSpace}{BackSpace}{BackSpace}
+        assert: eq(preedit, nil)
+      - send: gwon{BackSpace}
+        assert: eq(preedit, "궈")
+      - send: gwe
+        assert: eq(preedit, "궤")
+      - send: gwe{BackSpace}
+        assert: eq(preedit, "구")
+      - send: gwe{BackSpace}{BackSpace}
+        assert: eq(preedit, "ㄱ")
+      - send: gwe{BackSpace}{BackSpace}{BackSpace}
+        assert: eq(preedit, nil)
+      - send: gwen{BackSpace}
+        assert: eq(preedit, "궤")
+      - send: gwi
+        assert: eq(preedit, "귀")
+      - send: gwi{BackSpace}
+        assert: eq(preedit, "구")
+      - send: gwi{BackSpace}{BackSpace}
+        assert: eq(preedit, "ㄱ")
+      - send: gwi{BackSpace}{BackSpace}{BackSpace}
+        assert: eq(preedit, nil)
+      - send: gwin{BackSpace}
+        assert: eq(preedit, "귀")
+      - send: gui
+        assert: eq(preedit, "긔")
+      - send: gui{BackSpace}
+        assert: eq(preedit, "그")
+      - send: gui{BackSpace}{BackSpace}
+        assert: eq(preedit, "ㄱ")
+      - send: gui{BackSpace}{BackSpace}{BackSpace}
+        assert: eq(preedit, nil)
+      - send: guin{BackSpace}
+        assert: eq(preedit, "긔")
+      - send: gwa{BackSpace}e
+        assert: eq(preedit, "괴")
+      - send: gwo{BackSpace}i
+        assert: eq(preedit, "긔")
+      - send: wa{BackSpace}
+        assert: eq(preedit, "ㅗ")
+      - send: wa{BackSpace}{BackSpace}
+        assert: eq(preedit, nil)
+      - send: gwaga{Left}{BackSpace}
+        assert: eq(preedit, "고가")
+      - send: gwaga{Left}{BackSpace}e
+        assert: eq(preedit, "괴가")

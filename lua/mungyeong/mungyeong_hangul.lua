@@ -316,6 +316,29 @@ function Hangul:detach()
     return res and utf8.char(res) or ""
 end
 
+-- BackSpace removes one component of a compound vowel in every layout.
+-- Keep detach() atomic:
+-- the speller also uses it to replace the last translated jamo while typing.
+local BACKSPACE_VOWEL_MAP = {
+    [0x3158] = 0x3157, -- ㅘ -> ㅗ
+    [0x3159] = 0x3157, -- ㅙ -> ㅗ
+    [0x315A] = 0x3157, -- ㅚ -> ㅗ
+    [0x315D] = 0x315C, -- ㅝ -> ㅜ
+    [0x315E] = 0x315C, -- ㅞ -> ㅜ
+    [0x315F] = 0x315C, -- ㅟ -> ㅜ
+    [0x3162] = 0x3161, -- ㅢ -> ㅡ
+}
+
+function Hangul:backspace()
+    local vowel = not self:has_coda() and BACKSPACE_VOWEL_MAP[self.vowel]
+    if vowel then
+        self.vowel = vowel
+        return utf8.char(vowel)
+    end
+    self:detach()
+    return nil
+end
+
 -- Compose the hangul into a single character
 -- @return composed hangul
 function Hangul:compose()

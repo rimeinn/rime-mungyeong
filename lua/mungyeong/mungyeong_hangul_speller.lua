@@ -92,7 +92,7 @@ function Top.init(env)
         else
             local left_input = input:sub(1, caret_pos)
             if env.cur_hangul.is_to_detach then
-                env.cur_hangul:detach()
+                local vowel = env.cur_hangul:backspace()
                 env.cur_hangul.is_to_detach = false
                 local composed_hangul = env.cur_hangul:compose()
                 if composed_hangul ~= "" then
@@ -101,7 +101,9 @@ function Top.init(env)
                     -- cur_hangul is empty, need to update it
                     env.cur_hangul = hangul.from_lit(utf8_sub(left_input, -1))
                 end
-                env.last_code = ""
+                -- Resume the surviving vowel using the current layout, so
+                -- another vowel key can continue the compound after deletion.
+                env.last_code = vowel and (env.jamo_reverse:lookup(vowel):match("%S+") or "") or ""
                 return
             end
             local _, error_pos = utf8.len(left_input)
