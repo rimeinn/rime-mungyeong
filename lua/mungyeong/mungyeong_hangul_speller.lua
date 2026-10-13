@@ -178,7 +178,11 @@ function Top.func(key_event, env)
 	if input:find("`") then
             context:select(0)
 	else
-	    context:clear_non_confirmed_composition()
+            -- Commit the Hangul spelling without selecting a Hanja candidate.
+            -- Keep affix segments: their phony tag prevents prefix submission.
+            if last_seg then
+                last_seg.menu = Menu()
+            end
 	    context:commit()
 	end
         env.cur_hangul = hangul:new()
