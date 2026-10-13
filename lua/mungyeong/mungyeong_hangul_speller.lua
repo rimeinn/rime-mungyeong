@@ -80,8 +80,16 @@ function Top.init(env)
     local last_caret_pos = 0
     env.update_notifier = env.engine.context.update_notifier:connect(function(ctx)
         local input = ctx.input
-        local len, error_pos = utf8.len(input)
         local caret_pos = ctx.caret_pos
+        local seg = ctx.composition:back()
+        if not seg or not seg:has_tag("mungyeong") then
+            last_caret_pos = caret_pos
+            -- The first Hangul insertion runs before Rime assigns its tag.
+            -- Keep local state in sync, but never edit another speller's input.
+            env.cur_hangul = hangul.from_lit(utf8_sub(input:sub(1, caret_pos), -1))
+            return
+        end
+        local len, error_pos = utf8.len(input)
         if not len then
             if caret_pos >= error_pos then
                 env.cur_hangul.is_to_detach = true
