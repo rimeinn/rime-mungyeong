@@ -134,6 +134,27 @@ function Top.func(key_event, env)
         return kNoop
     end
     local keycode = key_event.keycode
+    if keycode == 0xff08 and not key_event:shift() then -- BackSpace
+        local context = env.engine.context
+        local seg = context.composition:back()
+        if not context:get_option("ascii_mode") and seg and seg:has_tag("mungyeong") then
+            local input, caret = context.input, context.caret_pos
+            local left = input:sub(1, caret)
+            local lit = utf8_sub(left, -1)
+            local current = hangul.from_lit(lit)
+            if current:compose() ~= "" and caret - #lit >= seg.start then
+                local vowel = current:backspace(env.layout == "mungyeong_dubeolsik")
+                local replacement = current:compose()
+                -- Replace a whole UTF-8 character so other spellers' update
+                -- callbacks never observe partially deleted Hangul bytes.
+                context.input = left:sub(1, #left - #lit) .. replacement .. input:sub(caret + 1)
+                context.caret_pos = caret - #lit + #replacement
+                -- Resume the surviving vowel's code so e.g. 과, BS, l -> 괴.
+                env.last_code = vowel and (env.jamo_reverse:lookup(vowel):match("%S+") or "") or ""
+                return kAccepted
+            end
+        end
+    end
     if keycode < 0x20 or keycode > 0x7E then
         return kNoop
     end
