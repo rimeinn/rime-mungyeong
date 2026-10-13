@@ -349,3 +349,41 @@ deploy:
         assert: eq(preedit, "고가")
       - send: gwaga{Left}{BackSpace}e
         assert: eq(preedit, "괴가")
+
+  # Space commits Hangul even when Hanja candidates are available.
+  space_hangul:
+    options:
+      candidates: true
+    tests:
+    - send: skql{space}
+      assert: eq(commit, "나비 ") and preedit == nil
+    - send: gksrnr{space}
+      assert: eq(commit, "한국 ") and preedit == nil
+    - send: r{space}
+      assert: eq(commit, "ㄱ ") and preedit == nil
+    - send: rhk{space}
+      assert: eq(commit, "과 ") and preedit == nil
+    - send: skql{Left}{Right}{space}
+      assert: eq(commit, "나비 ") and preedit == nil
+    - send: skql{BackSpace}{space}
+      assert: eq(commit, "나ㅂ ") and preedit == nil
+    - send: skql{space}r
+      assert: eq(commit, "나비 ") and eq(preedit, "ㄱ")
+  space_hangul_no_candidates:
+    options:
+      candidates: false
+    tests:
+    - send: skql{space}
+      assert: eq(commit, "나비 ") and preedit == nil
+    - send: gksrnr{space}
+      assert: eq(commit, "한국 ") and preedit == nil
+    - send: r{space}
+      assert: eq(commit, "ㄱ ") and preedit == nil
+    - send: rhk{space}
+      assert: eq(commit, "과 ") and preedit == nil
+    - send: skql{Left}{Right}{space}
+      assert: eq(commit, "나비 ") and preedit == nil
+    - send: skql{BackSpace}{space}
+      assert: eq(commit, "나ㅂ ") and preedit == nil
+    - send: skql{space}r
+      assert: eq(commit, "나비 ") and eq(preedit, "ㄱ")
