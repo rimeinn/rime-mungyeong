@@ -316,7 +316,8 @@ function Hangul:detach()
     return res and utf8.char(res) or ""
 end
 
--- A 2-set BackSpace undoes one vowel keystroke. Keep detach() atomic:
+-- BackSpace removes one component of a compound vowel in every layout.
+-- Keep detach() atomic:
 -- the speller also uses it to replace the last translated jamo while typing.
 local BACKSPACE_VOWEL_MAP = {
     [0x3158] = 0x3157, -- ㅘ -> ㅗ
@@ -328,8 +329,8 @@ local BACKSPACE_VOWEL_MAP = {
     [0x3162] = 0x3161, -- ㅢ -> ㅡ
 }
 
-function Hangul:backspace(split_vowel)
-    local vowel = split_vowel and not self:has_coda() and BACKSPACE_VOWEL_MAP[self.vowel]
+function Hangul:backspace()
+    local vowel = not self:has_coda() and BACKSPACE_VOWEL_MAP[self.vowel]
     if vowel then
         self.vowel = vowel
         return utf8.char(vowel)
